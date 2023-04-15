@@ -20,4 +20,6 @@ spring:
         format-sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
+  flyway:
+    baselineOnMigrate: true
