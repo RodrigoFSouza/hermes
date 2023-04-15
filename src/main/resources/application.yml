@@ -1,0 +1,23 @@
+server:
+  port: 8097
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+spring:
+  application:
+    name: Hermes
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/hermes
+    password: postgres
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create-drop
