@@ -3,12 +3,10 @@ package br.com.cronos.hermes.entities;
 import br.com.cronos.hermes.dto.LancamentoDto;
 import lombok.*;
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 
 @Data
 @Builder
