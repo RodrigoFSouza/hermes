@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,6 +49,7 @@ public class LancamentoService {
     public LancamentoDto criarNovo(LancamentoDto lancamentoDto) {
         logger.info("SERVICE - Criando um novo lancamento {}", lancamentoDto);
         Lancamento lancamento = lancamentoDto.toEntity();
+        lancamento.setDataCadastro(LocalDateTime.now());
         return lancamentoRepository.save(lancamento).toDto();
     }
 
@@ -55,11 +57,10 @@ public class LancamentoService {
     public LancamentoDto atualizar(UUID id, LancamentoDto lancamentoDto) {
         logger.info("SERVICE - Atualizando o lancamento com o id {} com as seguintes informacoes {}", id, lancamentoDto);
         Lancamento lancamentoRecuperado = verificarSeLancamentoExiste(id);
-            lancamentoRecuperado.setMes(lancamentoDto.getMes());
-            lancamentoRecuperado.setAno(lancamentoDto.getAno());
-            lancamentoRecuperado.setUsuario(lancamentoDto.getUsuario());
-            lancamentoRecuperado.setValor(lancamentoDto.getValor());
-            lancamentoRecuperado.setDataCadastro(lancamentoDto.getDataCadastro());
+        lancamentoRecuperado.setMes(lancamentoDto.getMes());
+        lancamentoRecuperado.setAno(lancamentoDto.getAno());
+        lancamentoRecuperado.setUsuario(lancamentoDto.getUsuario());
+        lancamentoRecuperado.setValor(lancamentoDto.getValor());
     
         return lancamentoRepository.save(lancamentoRecuperado).toDto();
     }
