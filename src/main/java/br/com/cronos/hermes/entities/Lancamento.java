@@ -24,7 +24,7 @@ public class Lancamento {
     private Integer mes;
     @Column(name = "ano")
     private Integer ano;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     @Column(name = "valor")
@@ -39,7 +39,6 @@ public class Lancamento {
                 .ano(this.ano)
                 .usuario(this.usuario)
                 .valor(this.valor)
-                .dataCadastro(this.dataCadastro)
             .build();
     }
 }

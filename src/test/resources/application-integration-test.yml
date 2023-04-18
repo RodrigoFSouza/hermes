@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/hermes_test
+    password: postgres
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        show-sql: true
+        format-sql: true
+        use_sql_comments: true
+      ddl-auto: none
+  sql:
+    init:
+      mode: never
