@@ -13,7 +13,7 @@ public final class LancamentoData {
         return LancamentoDto.builder()
                     .mes(LancamentoConstants.MES)
                     .ano(LancamentoConstants.ANO)
-                    .usuario(UsuarioData.newUsuarioBuilder().build())
+                    .usuario(UsuarioData.newBuilder().build())
                     .valor(LancamentoConstants.VALOR);
     }
     
@@ -22,7 +22,7 @@ public final class LancamentoData {
                 .id(UUID.randomUUID())
                     .mes(LancamentoConstants.MES_UPDATE)
                     .ano(LancamentoConstants.ANO_UPDATE)
-                    .usuario(UsuarioData.newUsuarioBuilder().build())
+                    .usuario(UsuarioData.newBuilder().build())
                     .valor(LancamentoConstants.VALOR_UPDATE);
     }
     
@@ -30,7 +30,7 @@ public final class LancamentoData {
         return Lancamento.builder()
                     .mes(LancamentoConstants.MES)
                     .ano(LancamentoConstants.ANO)
-                    .usuario(UsuarioData.newUsuarioBuilder().build())
+                    .usuario(UsuarioData.newBuilder().build())
                     .valor(LancamentoConstants.VALOR);
     }
 }

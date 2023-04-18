@@ -7,6 +7,7 @@ import br.com.cronos.hermes.repositories.LancamentoRepository;
 import br.com.cronos.hermes.repositories.UsuarioRepository;
 import br.com.cronos.hermes.utils.DatabaseCleaner;
 import br.com.cronos.hermes.utils.LancamentoConstants;
+import br.com.cronos.hermes.utils.UsuarioData;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static br.com.cronos.hermes.utils.LancamentoData.*;
-import static br.com.cronos.hermes.utils.UsuarioData.newUsuarioBuilder;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -46,7 +46,7 @@ class LancamentoIntegrationTest extends BaseIntegrationTest {
     }
     
     void prepareData() {
-        usuarioCriado =  usuarioRepository.save(newUsuarioBuilder().build());
+        usuarioCriado =  usuarioRepository.save(UsuarioData.newBuilder().build());
         var lancamentoDto = newLancamentoBuilder().usuario(usuarioCriado).dataCadastro(LocalDateTime.now()).build();
         var lancamentoDtoSalvo = repository.save(lancamentoDto);
         idLancamentoDtoCriado = lancamentoDtoSalvo.getId();
