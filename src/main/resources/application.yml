@@ -10,7 +10,7 @@ spring:
     name: Hermes
   datasource:
     username: postgres
-    url: jdbc:postgresql://localhost:5432/hermes
+    url: jdbc:postgresql://localhost:5434/hermes
     password: postgres
   jpa:
     open-in-view: false

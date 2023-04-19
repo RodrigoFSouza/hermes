@@ -1,11 +1,13 @@
 package br.com.cronos.hermes;
 
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -52,4 +54,32 @@ public class HermesApplication {
                 env.getActiveProfiles());
     }
 
+    @Component
+    class DebeziumRoute extends RouteBuilder {
+        private String offsetStorageFilename = "C:\\projetos\\portifolio\\data\\apache-camel\\offset-file.dat";
+        private String host = "localhost";
+        private String username = "postgres";
+        private String password = "postgres";
+        private String db = "postgres";
+
+
+        @Override
+        public void configure() throws Exception {
+            from(
+                "debezium-postgres:dbz-postgres?offsetStorageFilename=" + offsetStorageFilename
+                    + "&databaseHostName=" + host
+                    + "&databaseUser=" + username
+                    + "&databasePassword=" + password
+                    + "&databaseServerName=" + db
+                    + "&databaseDbname=" + db
+                    + "&pluginName=pgoutput")
+            .log("EVENTO: ${body}")
+            .log(" identificador: ${headers.CamelDebeziumIdentifier}")
+            .log(" source metadata: ${headers.CamelDebeziumSourceMetadata}")
+            .log(" operacao: ${headers.CamelDebeziumOperation}")
+            .log(" base: ${headers.CamelDebeziumSourceMetadata[db]}")
+            .log(" tabela: ${headers.CamelDebeziumSourceMetadata[table]}")
+            .log(" chave primaria: ${headers.CamelDebeziumKey}");
+        }
+    }
 }
