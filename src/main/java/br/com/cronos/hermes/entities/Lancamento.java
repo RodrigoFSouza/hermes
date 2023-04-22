@@ -1,6 +1,8 @@
 package br.com.cronos.hermes.entities;
 
 import br.com.cronos.hermes.dto.LancamentoDto;
+import br.com.cronos.hermes.entities.enums.StatusLancamento;
+import br.com.cronos.hermes.entities.enums.TipoLancamento;
 import lombok.*;
 import jakarta.persistence.*;
 
@@ -20,6 +22,8 @@ public class Lancamento {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(name = "descricao")
+    private String descricao;
     @Column(name = "mes")
     private Integer mes;
     @Column(name = "ano")
@@ -32,13 +36,24 @@ public class Lancamento {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
+    @Column(name = "tipo")
+    @Enumerated(EnumType.STRING)
+    private TipoLancamento tipo;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusLancamento status;
+
     public LancamentoDto toDto() {
         return LancamentoDto.builder()
             .id(this.id)
-                .mes(this.mes)
-                .ano(this.ano)
-                .usuario(this.usuario)
-                .valor(this.valor)
+            .descricao(descricao)
+            .mes(this.mes)
+            .ano(this.ano)
+            .usuario(this.usuario)
+            .valor(this.valor)
+            .tipo(tipo)
+            .status(status)
             .build();
     }
 }

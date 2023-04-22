@@ -57,6 +57,9 @@ public class LancamentoService {
     public LancamentoDto atualizar(UUID id, LancamentoDto lancamentoDto) {
         logger.info("SERVICE - Atualizando o lancamento com o id {} com as seguintes informacoes {}", id, lancamentoDto);
         Lancamento lancamentoRecuperado = verificarSeLancamentoExiste(id);
+        lancamentoRecuperado.setDescricao(lancamentoDto.getDescricao());
+        lancamentoRecuperado.setStatus(lancamentoDto.getStatus());
+        lancamentoRecuperado.setTipo(lancamentoDto.getTipo());
         lancamentoRecuperado.setMes(lancamentoDto.getMes());
         lancamentoRecuperado.setAno(lancamentoDto.getAno());
         lancamentoRecuperado.setUsuario(lancamentoDto.getUsuario());
