@@ -1,8 +1,11 @@
 package br.com.cronos.hermes.controllers;
 
 import br.com.cronos.hermes.core.BaseUnitTest;
+import br.com.cronos.hermes.entities.enums.StatusLancamento;
+import br.com.cronos.hermes.entities.enums.TipoLancamento;
 import br.com.cronos.hermes.services.LancamentoService;
 import br.com.cronos.hermes.utils.JsonConvertion;
+import br.com.cronos.hermes.utils.LancamentoConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,6 +56,9 @@ class LancamentoControllerTest extends BaseUnitTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonConvertion.asJsonString(dto)))
             .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.descricao", is(dto.getDescricao())))
+            .andExpect(jsonPath("$.tipo", equalTo(TipoLancamento.DESPESA.toString())))
+            .andExpect(jsonPath("$.status", equalTo(StatusLancamento.PENDENTE.toString())))
             .andExpect(jsonPath("$.mes", is(dto.getMes())))
             .andExpect(jsonPath("$.ano", is(dto.getAno())))
             .andExpect(jsonPath("$.usuario", not(nullValue())))
@@ -79,6 +85,9 @@ class LancamentoControllerTest extends BaseUnitTest {
         mockMvc.perform(get(BASE_URL + "/" + dto.getId())
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
+            .andExpect(jsonPath("$.descricao", is(dto.getDescricao())))
+            .andExpect(jsonPath("$.tipo", equalTo(TipoLancamento.RECEITA.toString())))
+            .andExpect(jsonPath("$.status", equalTo(StatusLancamento.EFETIVADO.toString())))
             .andExpect(jsonPath("$.mes", is(dto.getMes())))
             .andExpect(jsonPath("$.ano", is(dto.getAno())))
             .andExpect(jsonPath("$.usuario", not(nullValue())))
@@ -95,6 +104,9 @@ class LancamentoControllerTest extends BaseUnitTest {
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.content[0].id", is(dtoEsperado.getId().toString())))
+            .andExpect(jsonPath("$.content[0].descricao", is(dtoEsperado.getDescricao())))
+            .andExpect(jsonPath("$.content[0].tipo", equalTo(TipoLancamento.RECEITA.toString())))
+            .andExpect(jsonPath("$.content[0].status", equalTo(StatusLancamento.EFETIVADO.toString())))
             .andExpect(jsonPath("$.content[0].mes", is(dtoEsperado.getMes())))
             .andExpect(jsonPath("$.content[0].ano", is(dtoEsperado.getAno())))
             .andExpect(jsonPath("$.content[0].usuario", not(nullValue())))
@@ -112,6 +124,9 @@ class LancamentoControllerTest extends BaseUnitTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(JsonConvertion.asJsonString(dtoAtualizadoEsperado)))
             .andExpect(status().isOk())
+            .andExpect(jsonPath("$.descricao", is(dtoAtualizadoEsperado.getDescricao())))
+            .andExpect(jsonPath("$.tipo", equalTo(TipoLancamento.RECEITA.toString())))
+            .andExpect(jsonPath("$.status", equalTo(StatusLancamento.EFETIVADO.toString())))
             .andExpect(jsonPath("$.id", is(dtoAtualizadoEsperado.getId().toString())))
             .andExpect(jsonPath("$.mes", is(dtoAtualizadoEsperado.getMes())))
             .andExpect(jsonPath("$.ano", is(dtoAtualizadoEsperado.getAno())))

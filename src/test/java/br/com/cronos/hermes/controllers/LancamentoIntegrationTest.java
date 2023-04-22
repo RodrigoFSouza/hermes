@@ -3,6 +3,8 @@ package br.com.cronos.hermes.controllers;
 import br.com.cronos.hermes.core.BaseIntegrationTest;
 import br.com.cronos.hermes.dto.LancamentoDto;
 import br.com.cronos.hermes.entities.Usuario;
+import br.com.cronos.hermes.entities.enums.StatusLancamento;
+import br.com.cronos.hermes.entities.enums.TipoLancamento;
 import br.com.cronos.hermes.repositories.LancamentoRepository;
 import br.com.cronos.hermes.repositories.UsuarioRepository;
 import br.com.cronos.hermes.utils.DatabaseCleaner;
@@ -67,6 +69,9 @@ class LancamentoIntegrationTest extends BaseIntegrationTest {
             .body("totalElements", is(equalTo(1)))
             .body("content", hasSize(1))
             .body("content[0].mes", is(equalTo(dtoEsperado.getMes())))
+            .body("content[0].descricao", is(equalTo(dtoEsperado.getDescricao())))
+            .body("content[0].tipo", equalTo(TipoLancamento.DESPESA.toString()))
+            .body("content[0].status", equalTo(StatusLancamento.PENDENTE.toString()))
             .body("content[0].ano", is(equalTo(dtoEsperado.getAno())))
             .body("content[0].usuario", notNullValue())
             .body("content[0].valor", is(equalTo(dtoEsperado.getValor().floatValue())));
@@ -85,6 +90,9 @@ class LancamentoIntegrationTest extends BaseIntegrationTest {
         .then()
             .statusCode(HttpStatus.OK.value())
             .body("mes", is(equalTo(dtoEsperado.getMes())))
+            .body("descricao", equalTo(dtoEsperado.getDescricao()))
+            .body("tipo", equalTo(TipoLancamento.DESPESA.toString()))
+            .body("status", equalTo(StatusLancamento.PENDENTE.toString()))
             .body("ano", is(equalTo(dtoEsperado.getAno())))
             .body("usuario", notNullValue())
             .body("valor", is(equalTo(dtoEsperado.getValor().floatValue())));
@@ -117,6 +125,9 @@ class LancamentoIntegrationTest extends BaseIntegrationTest {
             .extract().body().as(LancamentoDto.class);
 
         assertThat(lancamentoRetornado.getId(), notNullValue());
+        assertThat(lancamentoRetornado.getDescricao(), is(equalTo(dtoEsperado.getDescricao())));
+        assertThat(lancamentoRetornado.getTipo(), is(equalTo(dtoEsperado.getTipo())));
+        assertThat(lancamentoRetornado.getStatus(), is(equalTo(dtoEsperado.getStatus())));
         assertThat(lancamentoRetornado.getMes(), is(equalTo(dtoEsperado.getMes())));
         assertThat(lancamentoRetornado.getAno(), is(equalTo(dtoEsperado.getAno())));
         assertThat(lancamentoRetornado.getUsuario(), is(equalTo(dtoEsperado.getUsuario())));
@@ -165,6 +176,9 @@ class LancamentoIntegrationTest extends BaseIntegrationTest {
             .extract().body().as(LancamentoDto.class);
 
         assertThat(lancamentoRetornado.getId(), notNullValue());
+        assertThat(lancamentoRetornado.getDescricao(), is(equalTo(updateLancamentoDto.getDescricao())));
+        assertThat(lancamentoRetornado.getTipo(), is(equalTo(updateLancamentoDto.getTipo())));
+        assertThat(lancamentoRetornado.getStatus(), is(equalTo(updateLancamentoDto.getStatus())));
         assertThat(lancamentoRetornado.getMes(), is(equalTo(updateLancamentoDto.getMes())));
         assertThat(lancamentoRetornado.getAno(), is(equalTo(updateLancamentoDto.getAno())));
         assertThat(lancamentoRetornado.getUsuario(), is(equalTo(updateLancamentoDto.getUsuario())));

@@ -14,22 +14,31 @@ public final class LancamentoData {
                     .mes(LancamentoConstants.MES)
                     .ano(LancamentoConstants.ANO)
                     .usuario(UsuarioData.newBuilder().build())
+                    .descricao(LancamentoConstants.DESCRICAO)
+                    .tipo(LancamentoConstants.TIPO)
+                    .status(LancamentoConstants.STATUS)
                     .valor(LancamentoConstants.VALOR);
     }
     
     public static LancamentoDto.LancamentoDtoBuilder updateLancamentoDtoBuilder() {
         return LancamentoDto.builder()
                 .id(UUID.randomUUID())
-                    .mes(LancamentoConstants.MES_UPDATE)
-                    .ano(LancamentoConstants.ANO_UPDATE)
-                    .usuario(UsuarioData.newBuilder().build())
-                    .valor(LancamentoConstants.VALOR_UPDATE);
+                .descricao(LancamentoConstants.DESCRICAO_UPDATE)
+                .mes(LancamentoConstants.MES_UPDATE)
+                .ano(LancamentoConstants.ANO_UPDATE)
+                .usuario(UsuarioData.newBuilder().build())
+                .tipo(LancamentoConstants.TIPO_UPDATE)
+                .status(LancamentoConstants.STATUS_UPDATE)
+                .valor(LancamentoConstants.VALOR_UPDATE);
     }
     
     public static Lancamento.LancamentoBuilder newLancamentoBuilder() {
         return Lancamento.builder()
                     .mes(LancamentoConstants.MES)
                     .ano(LancamentoConstants.ANO)
+                    .descricao(LancamentoConstants.DESCRICAO)
+                    .tipo(LancamentoConstants.TIPO)
+                    .status(LancamentoConstants.STATUS)
                     .usuario(UsuarioData.newBuilder().build())
                     .valor(LancamentoConstants.VALOR);
     }
